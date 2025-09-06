@@ -1,45 +1,49 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { motion } from "framer-motion";
-import { Card, CardContent } from "@/components/ui/card";
+import { useState } from "react"
+import { motion } from "framer-motion"
+import { Card, CardContent } from "@/components/ui/card"
 
 const packages = [
   { images: 5, defaultPrice: 3750, customPrice: 6000 },
   { images: 10, defaultPrice: 7000, customPrice: 10000 },
   { images: 15, defaultPrice: 9000, customPrice: 13500 },
   { images: 20, defaultPrice: 10000, customPrice: 16000 },
-];
+]
 
 const whatsappLink =
-  "https://api.whatsapp.com/send/?phone=917217832613&text&type=phone_number&app_absent=0";
+  "https://api.whatsapp.com/send/?phone=917217832613&text&type=phone_number&app_absent=0"
 
 export function AIImagesPricing() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   return (
-    <section
-      id="ai-images"
-      className="relative overflow-hidden min-h-screen py-20 bg-gradient-to-b from-brand-dark/90 via-brand-dark/70 to-brand-dark/90"
-    >
+    <section id="ai-images" className="relative overflow-hidden min-h-screen flex items-stretch">
+      {/* Background gradient */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black via-gray-900 to-black" />
+
       {/* Cyber grid pattern */}
       <div className="absolute inset-0 opacity-10">
         <div className="h-full w-full bg-[linear-gradient(rgba(57,255,213,0.1)_1px,transparent_1px),linear-gradient(90deg,rgba(57,255,213,0.1)_1px,transparent_1px)] bg-[size:50px_50px]" />
       </div>
 
-      <div className="relative z-20 container mx-auto px-4 flex flex-col lg:flex-row items-center gap-12">
-        {/* Robot Image */}
-        <motion.img
-          src="/image.png"
-          alt="AI Robot"
-          initial={{ opacity: 0, x: -50 }}
+      <div className="relative z-20 container mx-auto px-4 py-20 flex flex-col md:flex-row items-stretch">
+        {/* Left Side - Full Height Robot Image */}
+        <motion.div
+          initial={{ opacity: 0, x: -100 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.8 }}
-          className="w-full max-w-md lg:max-w-lg object-contain"
-        />
+          className="w-full md:w-1/2 flex items-stretch"
+        >
+          <img
+            src="/image.png"
+            alt="AI Robot"
+            className="w-full h-full object-cover object-center drop-shadow-[0_0_40px_rgba(57,255,213,0.4)]"
+          />
+        </motion.div>
 
-        {/* Text + Pricing */}
-        <div className="flex-1">
+        {/* Right Side - Pricing Content */}
+        <div className="w-full md:w-1/2 flex flex-col justify-center px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -96,12 +100,16 @@ export function AIImagesPricing() {
                     <div className="space-y-4 mb-6">
                       <div className="bg-gray-900/50 rounded-lg p-4 border border-gray-700/50">
                         <p className="text-gray-300 text-sm mb-1">Default Templates</p>
-                        <p className="text-white text-xl font-bold">₹ {pkg.defaultPrice.toLocaleString()}</p>
+                        <p className="text-white text-xl font-bold">
+                          ₹ {pkg.defaultPrice.toLocaleString()}
+                        </p>
                       </div>
 
                       <div className="bg-gray-900/50 rounded-lg p-4 border border-[#39ffd5]/30">
                         <p className="text-gray-300 text-sm mb-1">Custom Concepts</p>
-                        <p className="text-[#39ffd5] text-xl font-bold">₹ {pkg.customPrice.toLocaleString()}</p>
+                        <p className="text-[#39ffd5] text-xl font-bold">
+                          ₹ {pkg.customPrice.toLocaleString()}
+                        </p>
                       </div>
                     </div>
 
@@ -134,5 +142,5 @@ export function AIImagesPricing() {
         </div>
       </div>
     </section>
-  );
+  )
 }
