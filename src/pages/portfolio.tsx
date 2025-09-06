@@ -31,12 +31,12 @@ const signatureVideos = [
 ]
 
 const galleryImages = [
-  { src: "/modern-design-showcase.png", title: "Design Showcase 1" },
-  { src: "/creative-portfolio-piece.jpg", title: "Creative Work 1" },
-  { src: "/artistic-composition.png", title: "Artistic Piece 1" },
-  { src: "/visual-identity-design.png", title: "Visual Identity 1" },
-  { src: "/brand-design-example.jpg", title: "Brand Design 1" },
-  { src: "/digital-art-creation.png", title: "Digital Art 1" },
+  { src: "/modern-design-showcase.jpeg", title: "Design Showcase 1" },
+  { src: "/creative-portfolio-piece.jpeg", title: "Creative Work 1" },
+  { src: "/artistic-composition.jpeg", title: "Artistic Piece 1" },
+  { src: "/visual-identity-design.jpeg", title: "Visual Identity 1" },
+  { src: "/brand-design-example.jpeg", title: "Brand Design 1" },
+  { src: "/digital-art-creation.jpeg", title: "Digital Art 1" },
 ]
 
 function VideoGrid({ videos, title }: { videos: typeof essentialVideos; title: string }) {
