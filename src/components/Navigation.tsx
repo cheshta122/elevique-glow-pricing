@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Menu, X, Sun, Moon } from 'lucide-react';
-import { Button } from '@/components/ui/button';
+import { useState, useEffect } from "react";
+import { Menu, X, Sun, Moon } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface NavigationProps {
   isDark: boolean;
@@ -16,44 +16,63 @@ const Navigation = ({ isDark, toggleTheme }: NavigationProps) => {
       setScrolled(window.scrollY > 50);
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: "smooth" });
     }
     setIsOpen(false);
   };
 
   const navItems = [
-    { label: 'Home', id: 'home' },
-    { label: 'Pricing', id: 'pricing' },
-    { label: 'FAQ', id: 'faq' },
-    { label: 'Contact', id: 'contact' }
+    { label: "Pricing", id: "pricing" },
+    { label: "FAQ", id: "faq" },
+    { label: "Contact", id: "contact" },
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-background/90 backdrop-blur-md border-b border-border' : 'bg-transparent'
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-background/90 backdrop-blur-md border-b border-border"
+          : "bg-transparent"
+      }`}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo */}
+          {/* ✅ Logo (Left) */}
           <div className="flex-shrink-0">
             <button
-              onClick={() => scrollToSection('home')}
-              className="text-2xl font-bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent hover:scale-105 transition-transform duration-200"
+              onClick={() => scrollToSection("home")}
+              className="focus:outline-none"
             >
-              Elevique
+              <div className="p-2 bg-white/10 rounded-xl backdrop-blur-sm"></div>
+              <img
+                src="/logo.png"
+                alt="Elevique Logo"
+                className="h-[90px] w-auto drop-shadow-[0_0_8px_rgba(0,255,200,0.5)] hover:drop-shadow-[0_0_14px_rgba(0,255,200,0.8)] transition-all duration-300"
+              />
             </button>
           </div>
 
-          {/* Desktop Navigation */}
-          <div className="hidden md:block">
-            <div className="ml-10 flex items-baseline space-x-8">
+          {/* ✅ Right Side: Theme Toggle + Navigation + Mobile Menu */}
+          <div className="flex items-center space-x-4 ml-auto">
+            {/* Theme Toggle */}
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={toggleTheme}
+              className="p-2 hover:bg-brand-primary/10 hover:text-brand-primary transition-colors"
+            >
+              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </Button>
+
+            {/* Desktop Navigation (Right aligned) */}
+            <div className="hidden md:flex space-x-8">
               {navItems.map((item) => (
                 <button
                   key={item.id}
@@ -64,20 +83,8 @@ const Navigation = ({ isDark, toggleTheme }: NavigationProps) => {
                 </button>
               ))}
             </div>
-          </div>
 
-          {/* Theme Toggle & Mobile Menu */}
-          <div className="flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={toggleTheme}
-              className="p-2 hover:bg-brand-primary/10 hover:text-brand-primary transition-colors"
-            >
-              {isDark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-            </Button>
-
-            {/* Mobile menu button */}
+            {/* Mobile Menu Button */}
             <div className="md:hidden">
               <Button
                 variant="ghost"
@@ -91,7 +98,7 @@ const Navigation = ({ isDark, toggleTheme }: NavigationProps) => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* ✅ Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 bg-background/95 backdrop-blur-md border border-border rounded-lg mt-2">

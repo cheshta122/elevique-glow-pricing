@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from "react"
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
 import { cva } from "class-variance-authority"
@@ -17,6 +19,17 @@ const NavigationMenu = React.forwardRef<
     )}
     {...props}
   >
+    {/* ✅ Logo Added Here */}
+    <div className="mr-4 flex-shrink-0">
+      <a href="/" className="focus:outline-none">
+        <img
+          src="/logo.png" // put your logo.png inside public/ folder
+          alt="Logo"
+          className="h-10 w-auto hover:scale-105 transition-transform duration-200"
+        />
+      </a>
+    </div>
+
     {children}
     <NavigationMenuViewport />
   </NavigationMenuPrimitive.Root>

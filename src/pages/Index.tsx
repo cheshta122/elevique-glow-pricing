@@ -4,6 +4,8 @@ import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingSocial from "@/components/FloatingSocial";
+import { VideoGrid } from "@/components/video-grid";
+import { AIImagesPricing } from "@/components/ai-images-pricing";
 
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
@@ -27,15 +29,15 @@ const Index = () => {
           <div className="animate-fade-in">
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               <span className="bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-primary bg-clip-text text-transparent">
-                Elevique
+                Transform Your Brand with AI Powered Visuals Creation
+
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-3xl mx-auto">
-              Transform Your Brand with AI-Powered Video Creation
-            </p>
-            <p className="text-lg text-brand-secondary mb-8 max-w-2xl mx-auto">
               No shoots, no crew, no locations — just high-converting, viral AI content that saves you lakhs in production costs.
+
             </p>
+            
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <button
@@ -81,9 +83,15 @@ const Index = () => {
       
       {/* Pricing Section */}
       <PricingSection />
+
+      {/*AI Images Section */}
+      <AIImagesPricing />
       
       {/* FAQ Section */}
       <FAQSection />
+      
+      {/*video grid section*/}
+      <VideoGrid/>
       
       {/* Contact Section */}
       <ContactSection />
