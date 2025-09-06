@@ -1,261 +1,207 @@
-import { useState } from "react";
-import { Check, ArrowRight, X } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+"use client"
 
-const PricingSection = () => {
-  const [openPanel, setOpenPanel] = useState<string | null>(null);
+import { useState } from "react"
+import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+  DialogFooter,
+} from "@/components/ui/dialog"
+import { BadgeCheck, Cpu, Bot, Workflow, Rocket, ArrowRight } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
 
-  const togglePanel = (panelId: string) => {
-    setOpenPanel(openPanel === panelId ? null : panelId);
-  };
+type PkgKey = "signature" | "impact" | "essentials"
 
-  const packages = [
-    {
-      id: "essential",
-      name: "Essential",
-      subtitle: "(Rapid, polished AI ad)",
-      badge: "Duration: up to 25 sec",
-      price: "₹3,500",
-      features: [
-        "Realistic AI characters",
-        "Clean edit",
-        "Brand intro & messaging",
-        "Professional voiceover + BG music",
-        "Single product highlight",
-        "End-card logo placement",
-        "1 Free revision",
-      ],
-      miniPricing: [
-        { label: "3 Videos", amount: "₹10,500" },
-        { label: "5 Videos", amount: "₹17,000" },
-        { label: "10 Videos", amount: "₹32,000" },
-      ],
-      suitable: "Fast promos, offers, product teasers, UGC-style reels.",
-      process: [
-        "Brief & asset intake (logo, product refs)",
-        "Script & storyboard (quick approval)",
-        "AI generation + clean edit",
-        "Final Delivery",
-      ],
-    },
-    {
-      id: "impact",
-      name: "Impact",
-      subtitle: "(Brand film with premium product integration)",
-      badge: "Duration: up to 40 sec",
-      price: "₹5,000",
-      features: [
-        "Realistic AI characters + premium elements",
-        "Advanced edit with tasteful transitions",
-        "Story-led script engineered for reach",
-        "Professional voiceover + BG music",
-        "End-to-end product integration across scenes",
-        "Advanced logo animation",
-        "2 Free revisions",
-        "VFX effects",
-        "4:5 Instagram export",
-      ],
-      miniPricing: [
-        { label: "3 Videos", amount: "₹15,000" },
-        { label: "5 Videos", amount: "₹24,500" },
-        { label: "10 Videos", amount: "₹47,000" },
-      ],
-      suitable:
-        "Product showcases, launch films, performance creatives with premium look.",
-      process: [
-        "Brief & asset intake (logo, product refs)",
-        "Script & storyboard (quick approval)",
-        "AI generation + clean edit",
-        "Final Delivery",
-      ],
-    },
-    {
-      id: "signature",
-      name: "Signature",
-      subtitle: "(Flagship luxury brand film — full cinematic)",
-      badge: "Duration: 30–60 sec",
-      price: "₹30,000",
-      features: [
-        "TV-grade visuals & finishing",
-        "Premium cinematic edit",
-        "Full narrative arcs & storytelling",
-        "Professional voiceover + BG music",
-        "Complete brand integration across shots",
-        "Campaign brand kit",
-        "3 Free revisions",
-        "Complex, dynamic camera moves",
-        "3–5 custom HD/3D images",
-        "Dedicated project manager & oversight",
-      ],
-      miniPricing: [
-        { label: "1 Video", amount: "Starting ₹30,000" },
-        { label: "3/5/10 Videos", amount: "Price on request" },
-      ],
-      suitable:
-        "Luxury campaigns, hero films, high-polish cinematic brand storytelling.",
-      process: [
-        "Brief & asset intake (logo, product refs)",
-        "Script & storyboard (quick approval)",
-        "AI generation + clean edit",
-        "Final Delivery",
-      ],
-    },
-  ];
+const packages: Record<PkgKey, { title: string; subtitle: string; features: string[]; badge?: string }> = {
+  signature: {
+    title: "Signature",
+    subtitle: "Flagship luxury brand film – full cinematic",
+    features: [
+      "TV-grade visuals & finishing",
+      "Premium cinematic edit",
+      "Full narrative arcs & storytelling",
+      "Professional voiceover + BG music",
+      "Complete brand integration across shots",
+      "Campaign brand kit",
+      "3 Free revisions",
+      "Complex, dynamic camera moves",
+      "3–5 custom HD/3D images",
+      "Dedicated project manager & oversight",
+    ],
+    badge: "Most Premium",
+  },
+  impact: {
+    title: "Impact",
+    subtitle: "Brand film with premium product integration",
+    features: [
+      "Realistic AI characters + premium elements",
+      "Advanced edit with tasteful transitions",
+      "Story-led script engineered for reach",
+      "Professional voiceover + BG music",
+      "End-to-end product integration across scenes",
+      "Advanced logo animation",
+      "2 Free revisions",
+      "VFX effects",
+      "4:5 Instagram export",
+    ],
+  },
+  essentials: {
+    title: "Essentials",
+    subtitle: "Rapid, polished AI ad",
+    features: [
+      "Realistic AI characters",
+      "Clean edit",
+      "Brand intro & messaging",
+      "Professional voiceover + BG music",
+      "Single product highlight",
+      "End-card logo placement",
+      "1 Free revision",
+    ],
+  },
+}
+
+const details: Record<PkgKey, { suitableFor: string; process: string[] }> = {
+  signature: {
+    suitableFor: "Luxury campaigns, hero films, cinematic brand storytelling.",
+    process: [
+      "Brief & asset intake (logo, product refs)",
+      "Script & storyboard (quick approval)",
+      "AI generation + clean edit",
+      "Final Delivery",
+    ],
+  },
+  impact: {
+    suitableFor: "Brands seeking a high-impact film with premium product focus.",
+    process: ["Brief & references", "Script & production plan", "AI generation + edit", "Delivery & exports"],
+  },
+  essentials: {
+    suitableFor: "Fast go-to-market ads with polished delivery.",
+    process: ["Brief intake", "Lightweight script", "AI generation + edit", "Delivery"],
+  },
+}
+
+function TechAccent() {
+  // tiny AI/tech-inspired decorative SVG
+  return (
+    <svg aria-hidden className="icon-floaty opacity-50" width="44" height="20" viewBox="0 0 44 20" fill="none">
+      <rect x="1" y="9" width="6" height="2" rx="1" className="fill-sky-500/40" />
+      <rect x="11" y="9" width="6" height="2" rx="1" className="fill-sky-500/40" />
+      <rect x="21" y="9" width="6" height="2" rx="1" className="fill-sky-500/40" />
+      <rect x="31" y="9" width="12" height="2" rx="1" className="fill-sky-500/40" />
+      <circle cx="9" cy="10" r="1" className="fill-sky-500/60" />
+      <circle cx="19" cy="10" r="1" className="fill-sky-500/60" />
+      <circle cx="29" cy="10" r="1" className="fill-sky-500/60" />
+    </svg>
+  )
+}
+
+export default function PackagesSection() {
+  const [active, setActive] = useState<PkgKey | null>(null)
 
   return (
-    <section className="py-20 bg-gradient-to-b from-brand-dark/90 via-brand-dark/70 to-brand-dark/90">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header */}
-        <div className="text-center mb-16 animate-fade-in">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent mb-4">
-            Elevique — Pricing Packages
-          </h2>
-          <p className="text-lg text-brand-secondary max-w-2xl mx-auto">
-            Transform your brand with AI-powered video creation. No shoots, no
-            crew — just high-converting viral content.
-          </p>
-        </div>
+    <div className="mx-auto max-w-6xl px-4 py-16 md:py-24">
+      <motion.div
+        className="mb-10 text-center"
+        initial={{ opacity: 0, y: 14 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.3 }}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <h2 className="text-3xl font-bold tracking-tight md:text-4xl">Packages</h2>
+        <p className="mt-2 text-foreground/70">Choose the right level for your campaign goals.</p>
+      </motion.div>
 
-        {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-          {packages.map((pkg, index) => (
-            <Card
-              key={pkg.id}
-              className="relative border-brand-primary/20 bg-gradient-to-b from-brand-dark/60 via-brand-dark/40 to-brand-dark/60 transition-transform duration-300 transform hover:-translate-y-2 hover:shadow-xl hover:shadow-brand-primary/20 group cursor-pointer"
-              style={{ animationDelay: `${index * 0.1}s` }}
+      <div className="grid gap-6 md:grid-cols-3">
+        {Object.entries(packages).map(([key, pkg], idx) => {
+          const k = key as PkgKey
+          return (
+            <motion.div
+              key={k}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, ease: "easeOut", delay: idx * 0.05 }}
             >
-              <CardHeader className="text-center pb-4">
-                <h3 className="text-2xl font-bold text-brand-primary mb-1 transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-brand-primary group-hover:to-brand-secondary group-hover:bg-clip-text group-hover:text-transparent">
-                  {pkg.name}
-                </h3>
-                <p className="text-sm text-brand-secondary mb-4 transition-colors duration-300 group-hover:text-brand-primary">
-                  {pkg.subtitle}
-                </p>
-                <div className="inline-block px-3 py-1 bg-brand-primary/10 border border-brand-primary/30 rounded-full text-xs text-brand-secondary mb-4 transition-all duration-300 group-hover:bg-brand-primary/20 group-hover:text-brand-primary">
-                  {pkg.badge}
-                </div>
-                <div className="flex items-baseline justify-center gap-2">
-                  <span className="text-sm text-brand-primary transition-colors duration-300 group-hover:text-brand-secondary">
-                    Starting
-                  </span>
-                  <span className="text-2xl font-bold text-brand-primary transition-all duration-300 group-hover:bg-gradient-to-r group-hover:from-brand-secondary group-hover:to-brand-primary group-hover:bg-clip-text group-hover:text-transparent">
-                    {pkg.price}
-                  </span>
-                </div>
-              </CardHeader>
-
-              <CardContent className="space-y-6">
-                <ul className="space-y-3">
-                  {pkg.features.map((feature, idx) => (
-                    <li key={idx} className="flex items-start gap-3 text-sm text-brand-secondary">
-                      <Check className="h-4 w-4 text-brand-primary mt-0.5 flex-shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                <div className="bg-brand-dark/70 border border-brand-primary/20 rounded-lg overflow-hidden">
-                  {pkg.miniPricing.map((item, idx) => (
-                    <div key={idx} className="flex justify-between items-center px-4 py-3 border-t border-brand-primary/10 first:border-t-0">
-                      <span className="text-sm text-brand-secondary">{item.label}</span>
-                      <span className="text-sm font-semibold text-brand-primary">{item.amount}</span>
-                    </div>
-                  ))}
-                </div>
-
-                <Button
-                  onClick={() => togglePanel(pkg.id)}
-                  className="w-full bg-transparent border-brand-primary text-brand-primary hover:bg-brand-primary/10 hover:text-brand-primary transition-all duration-300"
-                  variant="outline"
-                >
-                  Explore
-                  <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
-
-        {/* Detail Panels */}
-        {packages.map((pkg) => (
-          <div
-            key={`panel-${pkg.id}`}
-            className={`transition-all duration-500 overflow-hidden ${
-              openPanel === pkg.id ? "max-h-screen opacity-100 mb-8" : "max-h-0 opacity-0"
-            }`}
-          >
-            <Card className="border-brand-primary/30 bg-gradient-to-br from-brand-dark/70 via-brand-dark/50 to-brand-dark/70 glow-card">
-              <CardHeader>
-                <div className="flex items-center justify-between flex-wrap gap-4">
-                  <h3 className="text-2xl font-bold text-brand-primary">{pkg.name} — Details</h3>
-                  <div className="flex gap-3">
-                    <Button variant="ghost" onClick={() => setOpenPanel(null)} className="text-brand-secondary hover:text-brand-primary">
-                      <X className="mr-2 h-4 w-4" /> Close
-                    </Button>
-                    <Button
-                      className="bg-brand-primary text-brand-dark hover:bg-brand-primary/90"
-                      onClick={() =>
-                        window.open(
-                          "https://wa.me/917217832613?text=Hey%2C%20I%20want%20to%20get%20Ai%20content%20created%20for%20my%20brand.",
-                          "_blank"
-                        )
-                      }
-                    >
-                      Consult Now
-                    </Button>
-                  </div>
-                </div>
-              </CardHeader>
-
-              <CardContent>
-                <div className="mb-6 text-brand-secondary space-y-2">
-                  <p className="font-semibold text-brand-primary">
-                    Smart Brands Save Lakhs With AI-Powered visuals…
-                  </p>
-                  <p>No actual shoots, crew, locations. Just high-converting, viral AI Content!</p>
-                </div>
-
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <div className="space-y-6 bg-brand-dark/50 border border-brand-primary/20 rounded-lg p-6">
-                    <h4 className="text-brand-secondary font-semibold mb-3">Suitable for</h4>
-                    <p className="text-sm">{pkg.suitable}</p>
-
-                    <h4 className="text-brand-secondary font-semibold mt-4 mb-3">Process</h4>
-                    <ol className="space-y-2 text-sm">
-                      {pkg.process.map((step, idx) => (
-                        <li key={idx}>{idx + 1}. {step}</li>
-                      ))}
-                    </ol>
-                  </div>
-
-                  <div className="bg-brand-dark/50 border border-brand-primary/20 rounded-lg p-6">
-                    <h4 className="text-brand-secondary font-semibold mb-4">Pricing</h4>
-                    <div className="space-y-3">
-                      {pkg.miniPricing.map((item, idx) => (
-                        <div key={idx} className="flex justify-between items-center p-3 bg-brand-dark/70 border border-brand-primary/10 rounded-lg">
-                          <span className="text-sm text-brand-secondary">{item.label}</span>
-                          <span className="font-semibold text-brand-primary">{item.amount}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-6 p-4 bg-brand-primary/5 border border-brand-primary/20 rounded-lg text-xs text-brand-secondary">
-                      <h5 className="font-semibold mb-2">Notes</h5>
-                      <ul className="space-y-1">
-                        <li>• The AI videos created may be showcased as testimonials on our website and social media. Notify us if concerned.</li>
-                        <li>• Exceptional editing or product showcasing may have additional charges. You will be notified before processing.</li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        ))}
+              
+            </motion.div>
+          )
+        })}
       </div>
-    </section>
-  );
-};
 
-export default PricingSection;
+      <AnimatePresence>
+        <Dialog open={active !== null} onOpenChange={() => setActive(null)}>
+          <DialogContent>
+            {active && (
+              <motion.div
+                key={active}
+                initial={{ opacity: 0, y: 10, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: 10, scale: 0.98 }}
+                transition={{ duration: 0.2, ease: "easeOut" }}
+                className="space-y-4"
+              >
+                <DialogHeader>
+                  <DialogTitle>{packages[active].title} — Details</DialogTitle>
+                  <DialogDescription>{packages[active].subtitle}</DialogDescription>
+                </DialogHeader>
+
+                <div className="space-y-4">
+                  <div>
+                    <h4 className="font-medium">Suitable For</h4>
+                    <p className="text-sm text-foreground/70">{details[active].suitableFor}</p>
+                  </div>
+
+                  <div>
+                    <h4 className="font-medium">The Process</h4>
+                    <motion.ol
+                      className="mt-2 space-y-2"
+                      initial="hidden"
+                      animate="show"
+                      variants={{
+                        hidden: { transition: { staggerChildren: 0.05, staggerDirection: -1 } },
+                        show: { transition: { staggerChildren: 0.08 } },
+                      }}
+                    >
+                      {details[active].process.map((step, i) => {
+                        const Icon = [Cpu, Bot, Workflow, Rocket][i % 4]
+                        return (
+                          <motion.li
+                            key={step}
+                            className="flex items-center gap-2 text-sm"
+                            variants={{ hidden: { opacity: 0, y: 8 }, show: { opacity: 1, y: 0 } }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                          >
+                            <Icon size={16} className="text-sky-500 icon-floaty" />
+                            <span>{step}</span>
+                          </motion.li>
+                        )
+                      })}
+                    </motion.ol>
+                  </div>
+                </div>
+
+                <DialogFooter className="sm:justify-start">
+                  <Button className="bg-sky-500 hover:bg-sky-600 btn-glow btn-pulse" asChild>
+                    <a
+                      href="https://www.elevique.in/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      onClick={() => setActive(null)}
+                    >
+                      Get in Touch
+                    </a>
+                  </Button>
+                </DialogFooter>
+              </motion.div>
+            )}
+          </DialogContent>
+        </Dialog>
+      </AnimatePresence>
+    </div>
+  )
+}
