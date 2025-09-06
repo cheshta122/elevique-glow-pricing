@@ -6,6 +6,7 @@ import ContactSection from "@/components/ContactSection";
 import FloatingSocial from "@/components/FloatingSocial";
 import VideoGrid from "@/components/video-grid";
 import { AIImagesPricing } from "@/components/ai-images-pricing"; // ✅
+import MiniPortfolioPreview from "@/components/mini-portfolio-preview"; // ✅ import
 
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
@@ -13,17 +14,23 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       {/* Navigation */}
-      <Navigation isDark={theme === 'dark'} toggleTheme={toggleTheme} />
-      
+      <Navigation isDark={theme === "dark"} toggleTheme={toggleTheme} />
+
       {/* Floating Social Icons */}
       <FloatingSocial />
-      
+
       {/* Hero Section */}
-      <section id="home" className="pt-20 pb-10 bg-gradient-to-br from-background via-background to-brand-primary/5 relative overflow-hidden">
+      <section
+        id="home"
+        className="pt-20 pb-10 bg-gradient-to-br from-background via-background to-brand-primary/5 relative overflow-hidden"
+      >
         <div className="absolute inset-0 bg-gradient-glow opacity-30"></div>
         <div className="absolute top-10 left-10 w-32 h-32 bg-brand-primary/10 rounded-full blur-xl animate-float"></div>
-        <div className="absolute bottom-20 right-20 w-48 h-48 bg-brand-secondary/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }}></div>
-        
+        <div
+          className="absolute bottom-20 right-20 w-48 h-48 bg-brand-secondary/10 rounded-full blur-2xl animate-float"
+          style={{ animationDelay: "1s" }}
+        ></div>
+
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center py-20">
           <div className="animate-fade-in">
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
@@ -32,59 +39,86 @@ const Index = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-3xl mx-auto">
-              No shoots, no crew, no locations — just high-converting, viral AI content that saves you lakhs in production costs.
+              No shoots, no crew, no locations — just high-converting, viral AI
+              content that saves you lakhs in production costs.
             </p>
-            
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <button
-                onClick={() => document.getElementById('pricing')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() =>
+                  document.getElementById("pricing")?.scrollIntoView({
+                    behavior: "smooth",
+                  })
+                }
                 className="px-8 py-4 bg-brand-primary text-brand-dark font-semibold rounded-lg hover:bg-brand-primary/90 hover-lift transition-all duration-300 text-lg"
               >
                 View Pricing
               </button>
 
               <button
-                onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
+                onClick={() =>
+                  document.getElementById("portfolio")?.scrollIntoView({
+                    behavior: "smooth",
+                  })
+                }
                 className="px-8 py-4 bg-transparent border-2 border-brand-primary text-brand-primary font-semibold rounded-lg hover:bg-brand-primary hover:text-brand-dark hover-lift transition-all duration-300 text-lg"
               >
                 View Portfolio
               </button>
 
               <button
-                onClick={() => window.open('https://wa.me/917217832613?text=Hi%2C%20I%27m%20interested%20in%20your%20AI%20video%20services.', '_blank')}
+                onClick={() =>
+                  window.open(
+                    "https://wa.me/917217832613?text=Hi%2C%20I%27m%20interested%20in%20your%20AI%20video%20services.",
+                    "_blank"
+                  )
+                }
                 className="px-8 py-4 bg-transparent border-2 border-brand-primary text-brand-primary font-semibold rounded-lg hover:bg-brand-primary hover:text-brand-dark hover-lift transition-all duration-300 text-lg"
               >
                 Get Started
               </button>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-primary/20">
                   <span className="text-2xl">🎬</span>
                 </div>
-                <h3 className="text-lg font-semibold text-brand-primary mb-2">AI-Powered Creation</h3>
-                <p className="text-sm text-muted-foreground">Cutting-edge AI technology creates realistic characters and scenarios</p>
+                <h3 className="text-lg font-semibold text-brand-primary mb-2">
+                  AI-Powered Creation
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Cutting-edge AI technology creates realistic characters and
+                  scenarios
+                </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-primary/20">
                   <span className="text-2xl">⚡</span>
                 </div>
-                <h3 className="text-lg font-semibold text-brand-primary mb-2">Lightning Fast</h3>
-                <p className="text-sm text-muted-foreground">From brief to final video in 3-14 days, depending on complexity</p>
+                <h3 className="text-lg font-semibold text-brand-primary mb-2">
+                  Lightning Fast
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  From brief to final video in 3-14 days, depending on complexity
+                </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-primary/20">
                   <span className="text-2xl">💰</span>
                 </div>
-                <h3 className="text-lg font-semibold text-brand-primary mb-2">Cost Effective</h3>
-                <p className="text-sm text-muted-foreground">Save lakhs compared to traditional video production</p>
+                <h3 className="text-lg font-semibold text-brand-primary mb-2">
+                  Cost Effective
+                </h3>
+                <p className="text-sm text-muted-foreground">
+                  Save lakhs compared to traditional video production
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-      
+
       {/* Pricing Section */}
       <PricingSection />
 
@@ -98,25 +132,54 @@ const Index = () => {
             Portfolio
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <img src="/artistic-composition.jpeg" alt="Artistic Composition" className="rounded-lg shadow-lg" />
-            <img src="/brand-design-example.jpeg" alt="Brand Design Example" className="rounded-lg shadow-lg" />
-            <img src="/creative-portfolio-piece.jpeg" alt="Creative Portfolio Piece" className="rounded-lg shadow-lg" />
-            <img src="/digital-art-creation.jpeg" alt="Digital Art Creation" className="rounded-lg shadow-lg" />
-            <img src="/modern-design-showcase.jpeg" alt="Modern Design Showcase" className="rounded-lg shadow-lg" />
-            <img src="/visual-identity-design.jpeg" alt="Visual Identity Design" className="rounded-lg shadow-lg" />
+            <img
+              src="/artistic-composition.jpeg"
+              alt="Artistic Composition"
+              className="rounded-lg shadow-lg"
+            />
+            <img
+              src="/brand-design-example.jpeg"
+              alt="Brand Design Example"
+              className="rounded-lg shadow-lg"
+            />
+            <img
+              src="/creative-portfolio-piece.jpeg"
+              alt="Creative Portfolio Piece"
+              className="rounded-lg shadow-lg"
+            />
+            <img
+              src="/digital-art-creation.jpeg"
+              alt="Digital Art Creation"
+              className="rounded-lg shadow-lg"
+            />
+            <img
+              src="/modern-design-showcase.jpeg"
+              alt="Modern Design Showcase"
+              className="rounded-lg shadow-lg"
+            />
+            <img
+              src="/visual-identity-design.jpeg"
+              alt="Visual Identity Design"
+              className="rounded-lg shadow-lg"
+            />
+          </div>
+
+          {/* ✅ Mini Portfolio Section */}
+          <div className="mt-16">
+            <MiniPortfolioPreview />
           </div>
         </div>
       </section>
-      
+
       {/* FAQ Section */}
       <FAQSection />
-      
+
       {/* Video Grid Section */}
-      <VideoGrid/>
-      
+      <VideoGrid />
+
       {/* Contact Section */}
       <ContactSection />
-      
+
       {/* Footer */}
       <footer className="bg-brand-dark/10 border-t border-brand-primary/20 py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -125,7 +188,9 @@ const Index = () => {
               <h3 className="text-2xl font-bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
                 Elevique
               </h3>
-              <p className="text-sm text-muted-foreground mt-1">AI-Powered Video Creation</p>
+              <p className="text-sm text-muted-foreground mt-1">
+                AI-Powered Video Creation
+              </p>
             </div>
             <div className="text-sm text-muted-foreground text-center md:text-right">
               <p>&copy; 2024 Elevique. All rights reserved.</p>
