@@ -1,18 +1,20 @@
-import { useTheme } from "@/components/ThemeProvider";
-import Navigation from "@/components/Navigation";
-import PricingSection from "@/components/PricingSection";
-import FAQSection from "@/components/FAQSection";
-import ContactSection from "@/components/ContactSection";
-import FloatingSocial from "@/components/FloatingSocial";
-import VideoGrid from "@/components/video-grid";
-import { AIImagesPricing } from "@/components/ai-images-pricing"; // ✅
-import MiniPortfolioPreview from "@/components/mini-portfolio-preview"; // ✅ import
+"use client"
+
+import { useTheme } from "@/components/ThemeProvider"
+import Navigation from "@/components/Navigation"
+import PricingSection from "@/components/PricingSection"
+import FAQSection from "@/components/FAQSection"
+import ContactSection from "@/components/ContactSection"
+import FloatingSocial from "@/components/FloatingSocial"
+import { AIImagesPricing } from "@/components/ai-images-pricing"
+// ✅ Replaced PortfolioSection import with MiniPortfolioPreview
+import MiniPortfolioPreview from "@/components/mini-portfolio-preview"
 
 const Index = () => {
-  const { theme, toggleTheme } = useTheme();
+  const { theme, toggleTheme } = useTheme()
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background scroll-smooth">
       {/* Navigation */}
       <Navigation isDark={theme === "dark"} toggleTheme={toggleTheme} />
 
@@ -43,23 +45,20 @@ const Index = () => {
               content that saves you lakhs in production costs.
             </p>
 
+            {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <button
                 onClick={() =>
-                  document.getElementById("pricing")?.scrollIntoView({
-                    behavior: "smooth",
-                  })
+                  document.getElementById("pricing")?.scrollIntoView({ behavior: "smooth" })
                 }
-                className="px-8 py-4 bg-brand-primary text-brand-dark font-semibold rounded-lg hover:bg-brand-primary/90 hover-lift transition-all duration-300 text-lg"
+                className="px-8 py-4 bg-brand-primary text-brand-dark font-semibold rounded-lg hover:bg-brand-primary/90 hover-lift transition-all duration-300 text-lg shadow-lg"
               >
                 View Pricing
               </button>
 
               <button
                 onClick={() =>
-                  document.getElementById("portfolio")?.scrollIntoView({
-                    behavior: "smooth",
-                  })
+                  document.getElementById("portfolio")?.scrollIntoView({ behavior: "smooth" })
                 }
                 className="px-8 py-4 bg-transparent border-2 border-brand-primary text-brand-primary font-semibold rounded-lg hover:bg-brand-primary hover:text-brand-dark hover-lift transition-all duration-300 text-lg"
               >
@@ -73,12 +72,13 @@ const Index = () => {
                     "_blank"
                   )
                 }
-                className="px-8 py-4 bg-transparent border-2 border-brand-primary text-brand-primary font-semibold rounded-lg hover:bg-brand-primary hover:text-brand-dark hover-lift transition-all duration-300 text-lg"
+                className="px-8 py-4 bg-gradient-to-r from-brand-primary to-brand-secondary text-brand-dark font-semibold rounded-lg hover:opacity-90 hover-lift transition-all duration-300 text-lg shadow-lg"
               >
-                Get Started
+                Get Started 🚀
               </button>
             </div>
 
+            {/* Features */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-primary/20">
@@ -88,17 +88,14 @@ const Index = () => {
                   AI-Powered Creation
                 </h3>
                 <p className="text-sm text-muted-foreground">
-                  Cutting-edge AI technology creates realistic characters and
-                  scenarios
+                  Cutting-edge AI technology creates realistic characters and scenarios
                 </p>
               </div>
               <div className="text-center">
                 <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-primary/20">
                   <span className="text-2xl">⚡</span>
                 </div>
-                <h3 className="text-lg font-semibold text-brand-primary mb-2">
-                  Lightning Fast
-                </h3>
+                <h3 className="text-lg font-semibold text-brand-primary mb-2">Lightning Fast</h3>
                 <p className="text-sm text-muted-foreground">
                   From brief to final video in 3-14 days, depending on complexity
                 </p>
@@ -107,9 +104,7 @@ const Index = () => {
                 <div className="w-16 h-16 bg-brand-primary/10 rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-primary/20">
                   <span className="text-2xl">💰</span>
                 </div>
-                <h3 className="text-lg font-semibold text-brand-primary mb-2">
-                  Cost Effective
-                </h3>
+                <h3 className="text-lg font-semibold text-brand-primary mb-2">Cost Effective</h3>
                 <p className="text-sm text-muted-foreground">
                   Save lakhs compared to traditional video production
                 </p>
@@ -120,62 +115,22 @@ const Index = () => {
       </section>
 
       {/* Pricing Section */}
-      <PricingSection />
+      <section id="pricing" className="py-20">
+        <PricingSection />
+      </section>
 
       {/* AI Images Section */}
       <AIImagesPricing />
 
-      {/* Portfolio Section */}
-      <section id="portfolio" className="py-20 bg-background">
+      {/* Mini Portfolio Preview Section */}
+      <section id="portfolio" className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
-            Portfolio
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
-            <img
-              src="/artistic-composition.jpeg"
-              alt="Artistic Composition"
-              className="rounded-lg shadow-lg"
-            />
-            <img
-              src="/brand-design-example.jpeg"
-              alt="Brand Design Example"
-              className="rounded-lg shadow-lg"
-            />
-            <img
-              src="/creative-portfolio-piece.jpeg"
-              alt="Creative Portfolio Piece"
-              className="rounded-lg shadow-lg"
-            />
-            <img
-              src="/digital-art-creation.jpeg"
-              alt="Digital Art Creation"
-              className="rounded-lg shadow-lg"
-            />
-            <img
-              src="/modern-design-showcase.jpeg"
-              alt="Modern Design Showcase"
-              className="rounded-lg shadow-lg"
-            />
-            <img
-              src="/visual-identity-design.jpeg"
-              alt="Visual Identity Design"
-              className="rounded-lg shadow-lg"
-            />
-          </div>
-
-          {/* ✅ Mini Portfolio Section */}
-          <div className="mt-16">
-            <MiniPortfolioPreview />
-          </div>
+          <MiniPortfolioPreview />
         </div>
       </section>
 
       {/* FAQ Section */}
       <FAQSection />
-
-      {/* Video Grid Section */}
-      <VideoGrid />
 
       {/* Contact Section */}
       <ContactSection />
@@ -193,14 +148,14 @@ const Index = () => {
               </p>
             </div>
             <div className="text-sm text-muted-foreground text-center md:text-right">
-              <p>&copy; 2024 Elevique. All rights reserved.</p>
+              <p>&copy; {new Date().getFullYear()} Elevique. All rights reserved.</p>
               <p className="mt-1">Transforming brands with AI technology</p>
             </div>
           </div>
         </div>
       </footer>
     </div>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

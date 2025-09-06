@@ -1,54 +1,51 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import Link from "next/link"
+import { motion } from "framer-motion";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import Link from "next/link";
 
-const portfolioVideos = [
+const essentialVideos = [
   {
     id: "dQw4w9WgXcQ",
-    title: "Essential Portfolio Piece 1",
-    description: "A showcase of our essential work",
+    title: "Essential Project 1",
+    description: "Core functionality showcase",
   },
   {
     id: "dQw4w9WgXcQ",
-    title: "Impact Project Highlight",
-    description: "Demonstrating real-world impact",
+    title: "Essential Project 2",
+    description: "Foundation work example",
   },
-  {
-    id: "dQw4w9WgXcQ",
-    title: "Signature Style Example",
-    description: "Our signature approach to design",
-  },
-  {
-    id: "dQw4w9WgXcQ",
-    title: "Creative Innovation",
-    description: "Pushing creative boundaries",
-  },
-]
+];
 
 export default function PortfolioSection() {
   return (
-    <section id="portfolio" className="py-24 px-4 relative">
-      <div className="max-w-7xl mx-auto">
+    <section id="portfolio" className="py-24 px-4 relative bg-black">
+      {/* Gradient graphics */}
+      <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/10 via-transparent to-brand-secondary/10 pointer-events-none"></div>
+      <div className="absolute top-10 left-10 w-40 h-40 bg-brand-primary/20 rounded-full blur-3xl animate-pulse"></div>
+      <div
+        className="absolute bottom-10 right-20 w-56 h-56 bg-brand-secondary/20 rounded-full blur-3xl animate-pulse"
+        style={{ animationDelay: "1s" }}
+      ></div>
+
+      <div className="relative max-w-7xl mx-auto">
+        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-left mb-12"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-secondary)] bg-clip-text text-transparent">
-            Portfolio
+          <h2 className="text-4xl font-extrabold mb-4 bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+            Essential Projects
           </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Discover our latest work and creative projects that showcase our expertise and innovation.
-          </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
-          {portfolioVideos.map((video, index) => (
+        {/* Essential Videos (2 only) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+          {essentialVideos.map((video, index) => (
             <motion.div
               key={video.id + index}
               initial={{ opacity: 0, y: 20 }}
@@ -58,7 +55,7 @@ export default function PortfolioSection() {
               whileHover={{ scale: 1.02 }}
               className="group"
             >
-              <Card className="overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+              <Card className="overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 bg-background border border-brand-primary/20">
                 <div className="aspect-video relative overflow-hidden">
                   <iframe
                     src={`https://www.youtube.com/embed/${video.id}`}
@@ -72,13 +69,14 @@ export default function PortfolioSection() {
                   <h3 className="text-xl font-semibold mb-2 group-hover:text-[var(--brand-primary)] transition-colors">
                     {video.title}
                   </h3>
-                  <p className="text-muted-foreground">{video.description}</p>
+                  <p className="text-gray-400">{video.description}</p>
                 </div>
               </Card>
             </motion.div>
           ))}
         </div>
 
+        {/* View All button */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -89,7 +87,7 @@ export default function PortfolioSection() {
           <Link href="/portfolio">
             <Button
               size="lg"
-              className="btn-glow bg-gradient-to-r from-[var(--brand-primary)] to-[var(--brand-secondary)] hover:from-[var(--brand-secondary)] hover:to-[var(--brand-primary)] text-white border-0 px-8 py-3 text-lg font-semibold rounded-2xl"
+              className="btn-glow bg-gradient-to-r from-brand-primary to-brand-secondary hover:from-brand-secondary hover:to-brand-primary text-white border-0 px-8 py-3 text-lg font-semibold rounded-2xl"
             >
               View All
             </Button>
@@ -97,6 +95,5 @@ export default function PortfolioSection() {
         </motion.div>
       </div>
     </section>
-  )
+  );
 }
-

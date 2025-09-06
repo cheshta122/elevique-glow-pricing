@@ -6,16 +6,17 @@ import { Card, CardContent } from "@/components/ui/card"
 import { ExternalLink } from "lucide-react"
 import { motion } from "framer-motion"
 
+// ✅ Add heading here
 const sampleVideos = [
   {
     id: "dQw4w9WgXcQ",
-    title: "Brand Showcase",
-    description: "Premium cinematic storytelling",
+    title: "Essential Project 1",
+    description: "Core functionality showcase",
   },
   {
     id: "9bZkp7q19f0",
-    title: "Product Launch",
-    description: "Dynamic visual presentation",
+    title: "Essential Project 2",
+    description: "Foundation work example",
   },
 ]
 
@@ -27,16 +28,15 @@ export default function MiniPortfolioPreview() {
       transition={{ duration: 0.5, delay: 0.35 }}
       className="rounded-lg bg-gradient-to-br from-sky-500/5 to-purple-500/5 p-6"
     >
-      <div className="mb-4 flex items-center justify-between">
-        <h3 className="text-xl font-semibold">Sample Work</h3>
-        <Button variant="outline" size="sm" asChild className="hover:bg-sky-500/10 bg-transparent">
-          <Link href="/portfolio" className="flex items-center gap-2">
-            View All <ExternalLink size={14} />
-          </Link>
-        </Button>
+      {/* Section Heading */}
+      <div className="mb-6 text-center">
+        <h2 className="text-3xl font-bold bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+          Essential Projects
+        </h2>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-2">
+      {/* Videos Grid */}
+      <div className="grid gap-4 md:grid-cols-2 mb-6">
         {sampleVideos.map((video, index) => (
           <motion.div
             key={video.id}
@@ -53,7 +53,6 @@ export default function MiniPortfolioPreview() {
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
               </div>
               <CardContent className="p-4">
                 <h4 className="font-semibold text-foreground">{video.title}</h4>
@@ -62,6 +61,19 @@ export default function MiniPortfolioPreview() {
             </Card>
           </motion.div>
         ))}
+      </div>
+
+      {/* View All Button */}
+      <div className="text-center">
+        <Link href="/portfolio">
+          <Button
+            variant="outline"
+            size="sm"
+            className="hover:bg-sky-500/10 bg-transparent flex items-center gap-2"
+          >
+            View All <ExternalLink size={14} />
+          </Button>
+        </Link>
       </div>
     </motion.div>
   )
