@@ -5,7 +5,7 @@ import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingSocial from "@/components/FloatingSocial";
 import { VideoGrid } from "@/components/video-grid";
-import { AIImagesPricing } from "@/components/ai-images-pricing";
+import AIImagesPricing from "@/components/ai-images-pricing";
 
 const Index = () => {
   const { theme, toggleTheme } = useTheme();
