@@ -4,7 +4,7 @@ import PricingSection from "@/components/PricingSection";
 import FAQSection from "@/components/FAQSection";
 import ContactSection from "@/components/ContactSection";
 import FloatingSocial from "@/components/FloatingSocial";
-import { VideoGrid } from "@/components/video-grid";
+import VideoGrid from "@/components/video-grid";
 import { AIImagesPricing } from "@/components/ai-images-pricing"; // ✅
 
 const Index = () => {
@@ -20,7 +20,6 @@ const Index = () => {
       
       {/* Hero Section */}
       <section id="home" className="pt-20 pb-10 bg-gradient-to-br from-background via-background to-brand-primary/5 relative overflow-hidden">
-        {/* Background Effects */}
         <div className="absolute inset-0 bg-gradient-glow opacity-30"></div>
         <div className="absolute top-10 left-10 w-32 h-32 bg-brand-primary/10 rounded-full blur-xl animate-float"></div>
         <div className="absolute bottom-20 right-20 w-48 h-48 bg-brand-secondary/10 rounded-full blur-2xl animate-float" style={{ animationDelay: '1s' }}></div>
@@ -30,14 +29,11 @@ const Index = () => {
             <h1 className="text-5xl md:text-7xl font-bold mb-6">
               <span className="bg-gradient-to-r from-brand-primary via-brand-secondary to-brand-primary bg-clip-text text-transparent">
                 Transform Your Brand with AI Powered Visuals Creation
-
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-4 max-w-3xl mx-auto">
               No shoots, no crew, no locations — just high-converting, viral AI content that saves you lakhs in production costs.
-
             </p>
-            
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12">
               <button
@@ -46,6 +42,14 @@ const Index = () => {
               >
                 View Pricing
               </button>
+
+              <button
+                onClick={() => document.getElementById('portfolio')?.scrollIntoView({ behavior: 'smooth' })}
+                className="px-8 py-4 bg-transparent border-2 border-brand-primary text-brand-primary font-semibold rounded-lg hover:bg-brand-primary hover:text-brand-dark hover-lift transition-all duration-300 text-lg"
+              >
+                View Portfolio
+              </button>
+
               <button
                 onClick={() => window.open('https://wa.me/917217832613?text=Hi%2C%20I%27m%20interested%20in%20your%20AI%20video%20services.', '_blank')}
                 className="px-8 py-4 bg-transparent border-2 border-brand-primary text-brand-primary font-semibold rounded-lg hover:bg-brand-primary hover:text-brand-dark hover-lift transition-all duration-300 text-lg"
@@ -84,13 +88,30 @@ const Index = () => {
       {/* Pricing Section */}
       <PricingSection />
 
-      {/*AI Images Section */}
+      {/* AI Images Section */}
       <AIImagesPricing />
+
+      {/* Portfolio Section */}
+      <section id="portfolio" className="py-20 bg-background">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2 className="text-4xl font-bold text-center mb-12 bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent">
+            Portfolio
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+            <img src="/artistic-composition.jpeg" alt="Artistic Composition" className="rounded-lg shadow-lg" />
+            <img src="/brand-design-example.jpeg" alt="Brand Design Example" className="rounded-lg shadow-lg" />
+            <img src="/creative-portfolio-piece.jpeg" alt="Creative Portfolio Piece" className="rounded-lg shadow-lg" />
+            <img src="/digital-art-creation.jpeg" alt="Digital Art Creation" className="rounded-lg shadow-lg" />
+            <img src="/modern-design-showcase.jpeg" alt="Modern Design Showcase" className="rounded-lg shadow-lg" />
+            <img src="/visual-identity-design.jpeg" alt="Visual Identity Design" className="rounded-lg shadow-lg" />
+          </div>
+        </div>
+      </section>
       
       {/* FAQ Section */}
       <FAQSection />
       
-      {/*video grid section*/}
+      {/* Video Grid Section */}
       <VideoGrid/>
       
       {/* Contact Section */}
